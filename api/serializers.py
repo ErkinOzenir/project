@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-from .models import Product
+from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -43,10 +43,46 @@ class RegisterSerializer(serializers.ModelSerializer):
     user.save()
     return user
 
+
 class ProductSerializer(serializers.ModelSerializer):
-    
-    Tag_set = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Product
         fields = '__all__'
+
+# class TokenSerializer(serializers.Serializer):
+#     """
+#     Serializer for Token model
+#     """
+#     key = serializers.CharField()
+class LoginAPISerializer(serializers.Serializer):
+    """
+    Serializer for LoginApiView
+    """
+    username = serializers.CharField()
+    password = serializers.CharField()
+    
+    def validate(self, data):
+        """
+        Validate username and password
+        """
+        username = data.get('username')
+        password = data.get('password')
+        
+        if not username or not password:
+            raise serializers.ValidationError('Username and password are required')
+        
+        user = authenticate(username=username, password=password)
+        if not user:
+            raise serializers.ValidationError('Invalid credentials')
+        
+        data['user'] = user
+        return data
+    
+    def create(self, validated_data):
+        """
+        Create a new token
+        """
+        user = validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return {'token': token.key}
