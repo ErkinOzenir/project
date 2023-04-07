@@ -1,4 +1,7 @@
-django
-djangorestframework
-django-filter
-Pillow
+pip install django
+pip install djangorestframework
+pip install django-filter
+pip install translations
+pip install Pillow
+pip install django-routers
+pip install django-rest-knox

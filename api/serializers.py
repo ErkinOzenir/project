@@ -49,16 +49,8 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-
-# class TokenSerializer(serializers.Serializer):
-#     """
-#     Serializer for Token model
-#     """
-#     key = serializers.CharField()
+        
 class LoginAPISerializer(serializers.Serializer):
-    """
-    Serializer for LoginApiView
-    """
     username = serializers.CharField()
     password = serializers.CharField()
     
@@ -86,3 +78,6 @@ class LoginAPISerializer(serializers.Serializer):
         user = validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return {'token': token.key}
+
+class LogoutAPISerializer(serializers.Serializer):
+
