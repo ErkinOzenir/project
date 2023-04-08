@@ -17,7 +17,7 @@ urlpatterns = [
   path('', include(router.urls)),
   path('register',RegisterUserAPIView.as_view()),
   path('login/', LoginAPIView.as_view()),
-  path('logout', LogoutAPIView.as_view()),
+  path('logout', LogoutView.as_view()),
   path('products', ProductsViewSet.as_view({'get': 'list'})),
 
 ]
