@@ -38,18 +38,8 @@ class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, format=None):
-        return Response({'message': 'Logout was successful'})
-    
-    def post(self, request, format=None):
-        url = 'http://localhost:8000/logout/'
-        headers = {'Authorization': f'Token {request.user.auth_token}'}
-        response = requests.post(url, headers=headers)
-        
-        if response.status_code == 204 and request.user.auth_token:
-            request.user.auth_token.delete()
-            return Response({'message': 'User logged out successfully.'})
-        else:
-            return Response({'error': 'Unable to logout user.'}, status=response.status_code)
+        Token.objects.get(user=self.request.user).delete()
+        return Response({'message': 'User is logged out'})
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):

@@ -58,9 +58,6 @@ class LoginAPISerializer(serializers.Serializer):
     http_method_names = ['get', 'post']
 
     def validate(self, data):
-        """
-        Validate username and password
-        """
         username = data.get('username')
         password = data.get('password')
 
@@ -75,9 +72,6 @@ class LoginAPISerializer(serializers.Serializer):
         return data
 
     def create(self, validated_data):
-        """
-        Create a new token
-        """
         user = validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return {'token': token.key}
