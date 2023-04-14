@@ -5,3 +5,5 @@ pip install translations
 pip install Pillow
 pip install django-routers
 pip install requests
+pip install django-admin-list-filters
+pip install drf-yasg

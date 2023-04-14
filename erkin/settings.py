@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'translations',
+    'django_admin_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -147,5 +149,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.IsAdminUser',
-    ]
+    ],
 }
